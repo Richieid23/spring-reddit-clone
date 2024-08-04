@@ -2,6 +2,7 @@ package id.web.fitrarizki.spring_reddit_clone.service;
 
 import id.web.fitrarizki.spring_reddit_clone.dto.CommentDto;
 import id.web.fitrarizki.spring_reddit_clone.exception.PostNotFoundException;
+import id.web.fitrarizki.spring_reddit_clone.exception.SpringRedditException;
 import id.web.fitrarizki.spring_reddit_clone.mapper.CommentMapper;
 import id.web.fitrarizki.spring_reddit_clone.model.Comment;
 import id.web.fitrarizki.spring_reddit_clone.model.NotificationEmail;
@@ -57,5 +58,12 @@ public class CommentService {
                 .stream()
                 .map(commentMapper::mapToDto)
                 .collect(Collectors.toList());
+    }
+
+    public boolean containsSwearWords(String comment) {
+        if (comment.contains("shit")) {
+            throw new SpringRedditException("Comments contains unacceptable language");
+        }
+        return false;
     }
 }
